@@ -68,6 +68,5 @@ Add to crontab
 ```cron
 15 */4 * * * /path/update.py --api-key <API-KEY> --cmc-key <COINMARKETCAP APIKEY> --mainnet
 */30 * * * * /path/clean.py --api-key <API-KEY> --mainnet
-10 */4 * * * /path/clean.py --api-key <API-KEY> --stop --mainnet
---stop
+10 */4 * * * /path/clean.py --api-key <API-KEY> --stop --mainnet --stop
 ```
