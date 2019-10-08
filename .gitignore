@@ -1,0 +1,19 @@
+# Common
+*.pyc
+*.pyo
+*.swp
+*.swo
+*.orig
+
+# Project
+/.env/
+/.idea/
+/var/
+/.ergo/
+/ergo.log
+*.log.gz
+/address.id
+/token.id
+/box.id
+/test_error.py
+/test.py
