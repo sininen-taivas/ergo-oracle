@@ -97,7 +97,7 @@ def main():
                     '/wallet/boxes/unspent'
                     '?minConfirmations=30&minInclusionHeight=0'
                 )
-                found = any(x['box']['boxId'] == id1 for x in res)
+                found = any(x['box']['boxId'] == id2 for x in res)
                 if found:
                     with open('box.id', 'w') as out:
                         out.write('%s\n' % id2)  # remove 1st line
