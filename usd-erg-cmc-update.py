@@ -2,10 +2,11 @@
 
 import logging
 import sys
-from argparse import ArgumentParser, ArgumentTypeError
+from argparse import ArgumentParser
 
-from util import ErgoClient, setup_logger, TARGET_SERVER
-from vlq import encode
+from price import CmcApi
+from update import ergo_update
+from util import setup_logger, TARGET_SERVER
 
 
 def read_data_file(fname, lines_expected):
@@ -30,15 +31,6 @@ def find_box_id(res, token_id):
     raise Exception(
         'Could not find box ID for token ID: %s' % token_id
     )
-
-
-def check_uint63(value):
-    ivalue = int(value)
-    if ivalue <= 0:
-        raise ArgumentTypeError("%s is an invalid positive int value" % value)
-    if ivalue >= 2**63:
-        raise ArgumentTypeError("%s is biggest value" % value)
-    return ivalue
 
 
 def parse_cli():
@@ -66,56 +58,9 @@ def parse_cli():
                        help='Using main net, default server localhost:9053')
     group.add_argument('--testnet', action='store_true',
                        help='Using test net, default server localhost:9052')
-    parser.add_argument('--value', type=check_uint63, help='unsigned int < 2^63')
+    parser.add_argument('--cmc-key', help='coinmarketcap API key', required=True)
 
     return parser.parse_args()
-
-
-def ergo_update(server: str, api_key: str, value: int):
-    api = ErgoClient(server, api_key)
-
-    address_id = read_data_file('address.id', 1)[0]
-    box_id = read_data_file('box.id', 1)[0]
-    token_id = read_data_file('token.id', 1)[0]
-
-    price = encode(value)
-
-    logging.info('Address: %s' % address_id)
-    logging.info('Box ID: %s' % box_id)
-    logging.info('Token ID: %s' % token_id)
-    logging.info('Encoded Price: %s' % price)
-
-    tx = {
-        'requests': [{
-            'address': address_id,
-            'value': 100000,
-            'assets': [{
-                'tokenId': token_id,
-                'amount': 1
-            }],
-            'registers': {
-                'R4': price
-            }
-        }],
-        'fee': 1e6,
-        'inputsRaw': []
-    }
-
-    signed_tx = api.request(
-        '/wallet/transaction/generate',
-        data=tx
-    )
-
-    res_box_id = find_box_id(signed_tx, token_id)
-    logging.info('Second Box ID: %s' % res_box_id)
-
-    with open('box.id', 'a') as out:
-        out.write('%s\n' % res_box_id)
-
-    api.request(
-        '/wallet/transaction/send',
-        data=tx
-    )
 
 
 def main():
@@ -127,7 +72,12 @@ def main():
         target_ = 'testnet'
 
     server_ = opts.server or TARGET_SERVER[target_]
-    ergo_update(server_, opts.api_key, opts.value)
+
+    cmc_api = CmcApi(opts.cmc_key)
+    price = cmc_api.get_ergo_price('USD')
+    logging.info('Ergo Price in USD: %s' % price)
+
+    ergo_update(server_, opts.api_key, int(price*1e7))
 
 
 if __name__ == '__main__':

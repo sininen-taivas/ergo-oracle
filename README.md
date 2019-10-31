@@ -2,7 +2,7 @@
 
 ## Usage
 
-`python issue.py --api-key <API-KEY> --name <name> --description <description>
+`python issue.py --api-key <API-KEY> --name <name> --description <description>`
 
 ## Command Line Options
 
@@ -30,11 +30,27 @@ You can specify CMC key either in --cmc-key option or in `var/config.json` file 
 }
 ```
 
-# Update Script
+# Common Update Script
 
 ## Usage
 
-`python3 update.py --api-key <API-KEY> --cmc-key <COINMARKETCAP APIKEY> --mainnet`
+`python3 update.py --api-key <API-KEY> --mainnet --value <unsigned int63>`
+
+## Command Line Options
+
+- `-h`, `--help` - display available command line options
+- `-s`, `--server` - use custom API server, default value is "localhost:9053"
+- `-n`, `--network-log` - log network operations to console
+- `-q`, `--quiet` - display result only, no debug output
+- `--api-key` - API key to pass RPC node authentication
+- `--value` - price as an unsigned int63
+
+
+# Update Script with value is equal USD Ergo price 
+
+## Usage
+
+`python3 usd-erg-cmc-update.py --api-key <API-KEY> --cmc-key <COINMARKETCAP APIKEY> --mainnet`
 
 ## Command Line Options
 
@@ -45,12 +61,43 @@ You can specify CMC key either in --cmc-key option or in `var/config.json` file 
 - `--api-key` - API key to pass RPC node authentication
 - `--cmc-key` - coinmarketcap API key
 
+# Update Script with value is equal Ergo AUG price 
+
+## Usage
+
+`python3 aug-erg-quandl-update.py --api-key <API-KEY> --cmc-key <COINMARKETCAP APIKEY> --quandl-key <QUANDL APIKEY> --mainnet`
+
+## Command Line Options
+
+- `-h`, `--help` - display available command line options
+- `-s`, `--server` - use custom API server, default value is "localhost:9053"
+- `-n`, `--network-log` - log network operations to console
+- `-q`, `--quiet` - display result only, no debug output
+- `--api-key` - API key to pass RPC node authentication
+- `--cmc-key` - coinmarketcap API key
+- `--quandl-key` - quandl API key
+
+# Update Script with value is equal USD AUG price 
+
+## Usage
+
+`python3 aug-usd-quandl-update.py --api-key <API-KEY> --quandl-key <QUANDL APIKEY> --mainnet`
+
+## Command Line Options
+
+- `-h`, `--help` - display available command line options
+- `-s`, `--server` - use custom API server, default value is "localhost:9053"
+- `-n`, `--network-log` - log network operations to console
+- `-q`, `--quiet` - display result only, no debug output
+- `--api-key` - API key to pass RPC node authentication
+- `--quandl-key` - quandl API key
+
 
 # Clean Script
 
 ## Usage
 
-`python3 clean.py --api-key <API-KEY> --mainnet
+`python3 clean.py --api-key <API-KEY> --mainnet`
 
 ## Command Line Options
 
@@ -66,7 +113,7 @@ You can specify CMC key either in --cmc-key option or in `var/config.json` file 
 
 Add to crontab
 ```cron
-15 */4 * * * /path/update.py --api-key <API-KEY> --cmc-key <COINMARKETCAP APIKEY> --mainnet
+15 */4 * * * /path/usd-erg-cmc-update.py --api-key <API-KEY> --cmc-key <COINMARKETCAP APIKEY> --mainnet
 */30 * * * * /path/clean.py --api-key <API-KEY> --mainnet
 10 */4 * * * /path/clean.py --api-key <API-KEY> --stop --mainnet --stop
 ```
