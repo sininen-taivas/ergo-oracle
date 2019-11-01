@@ -51,15 +51,15 @@ def main():
     server_ = opts.server or TARGET_SERVER[target_]
 
     price1 = get_currency(opts.quandl_key) / OZT
-    logging.info('Gold Price per Gram in USD: %s' % price1)
+    logging.info('AUG/USD price: %s' % price1)
 
     cmc_api = CmcApi(opts.cmc_key)
     price2 = cmc_api.get_ergo_price('USD')
-    logging.info('Ergo Price in USD: %s' % price2)
+    logging.info('USD/ERG price: %s' % price2)
 
     price = price1 / price2
 
-    logging.info('Gold Price per Gram in ERGO: %s' % price)
+    logging.info('AUG/ERG price: %s' % price)
 
     ergo_update(server_, opts.api_key, int(price * 1e9))
 

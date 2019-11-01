@@ -46,7 +46,7 @@ You can specify CMC key either in --cmc-key option or in `var/config.json` file 
 - `--value` - price as an unsigned int63
 
 
-# Update Script with value is equal USD Ergo price 
+# Update Script with USD/ERG price value 
 
 ## Usage
 
@@ -61,7 +61,7 @@ You can specify CMC key either in --cmc-key option or in `var/config.json` file 
 - `--api-key` - API key to pass RPC node authentication
 - `--cmc-key` - coinmarketcap API key
 
-# Update Script with value is equal Ergo AUG price 
+# Update Script with AUG/ERG price value 
 
 ## Usage
 
@@ -77,7 +77,7 @@ You can specify CMC key either in --cmc-key option or in `var/config.json` file 
 - `--cmc-key` - coinmarketcap API key
 - `--quandl-key` - quandl API key
 
-# Update Script with value is equal USD AUG price 
+# Update Script with AUG/USD price value 
 
 ## Usage
 

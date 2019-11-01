@@ -75,7 +75,7 @@ def main():
 
     cmc_api = CmcApi(opts.cmc_key)
     price = cmc_api.get_ergo_price('USD')
-    logging.info('Ergo Price in USD: %s' % price)
+    logging.info('USD/ERG price: %s' % price)
 
     ergo_update(server_, opts.api_key, int(price*1e7))
 

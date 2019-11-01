@@ -49,7 +49,7 @@ def main():
     server_ = opts.server or TARGET_SERVER[target_]
 
     price = get_currency(opts.quandl_key) / OZT
-    logging.info('Gold Price per Gram in USD: %s' % price)
+    logging.info('AUG/USD price: %s' % price)
 
     ergo_update(server_, opts.api_key, int(price*1e9))
 
