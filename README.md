@@ -61,6 +61,36 @@ You can specify CMC key either in --cmc-key option or in `var/config.json` file 
 - `--api-key` - API key to pass RPC node authentication
 - `--cmc-key` - coinmarketcap API key
 
+# Update Script with EUR/ERG price value 
+
+## Usage
+
+`python3 eur-erg-cmc-update.py --api-key <API-KEY> --cmc-key <COINMARKETCAP APIKEY> --mainnet`
+
+## Command Line Options
+
+- `-h`, `--help` - display available command line options
+- `-s`, `--server` - use custom API server, default value is "localhost:9053"
+- `-n`, `--network-log` - log network operations to console
+- `-q`, `--quiet` - display result only, no debug output
+- `--api-key` - API key to pass RPC node authentication
+- `--cmc-key` - coinmarketcap API key
+
+# Update Script with BTC/ERG price value (nanoErgo & milliBitcoin)
+
+## Usage
+
+`python3 btc-erg-cmc-update.py --api-key <API-KEY> --cmc-key <COINMARKETCAP APIKEY> --mainnet`
+
+## Command Line Options
+
+- `-h`, `--help` - display available command line options
+- `-s`, `--server` - use custom API server, default value is "localhost:9053"
+- `-n`, `--network-log` - log network operations to console
+- `-q`, `--quiet` - display result only, no debug output
+- `--api-key` - API key to pass RPC node authentication
+- `--cmc-key` - coinmarketcap API key
+
 # Update Script with AUG/ERG price value 
 
 ## Usage
